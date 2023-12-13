@@ -31,11 +31,13 @@ public class Randomisation : MonoBehaviour
     {
         foreach (Room room in rooms) 
         {
-            for (int i = 0; i < room.getChests().Count; i++)
+            /*for (int i = 0; i < room.getChests().Count; i++)
             {
                 if (room.getChests()[i].Equals)
                 room.getChests()[i]
-            }
+            }*/
+
+            Debug.Log(randGenerator.Next(10));
         }
     }
 }
