@@ -6,33 +6,23 @@ public class GameManager : MonoBehaviour
 {
     public GameObject _chest;
     public Room _room;
-    public Sprite _sprite;
-    public Vector3 _position;
+    public Randomisation _randomisation;
 
     // Start is called before the first frame update
     void Start()
     {
         //InitGame();
-        loadChest();
+        //loadChest();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void loadChest()
-    {
-        for (int i = 0; i < 4; i++)
+        if(Input.GetMouseButtonDown(0))
         {
-            for(int j = 0; j < 4; j++)
-            {
-                GameObject chestObject = Instantiate(_chest);
-                Vector3 newPos = new Vector3(_position.x + (10 * j), _position.y - (3 * i), _position.z);
-                chestObject.transform.SetPositionAndRotation(newPos, chestObject.transform.rotation);
-            }
+            Debug.Log(_randomisation.getNumberRand());
         }
-
     }
+
+    
 }

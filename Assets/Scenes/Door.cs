@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : ScriptableObject
+public class Door : MonoBehaviour
 {
 
     private int _id;
     private bool _isOpen;
+
+    private Room currentRoom;
+    private Room oldRoom;
 
 
 

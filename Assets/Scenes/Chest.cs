@@ -5,14 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Chest", menuName = "My Game/Chest")]
 public class Chest : MonoBehaviour
 {
+    private static int countChest = 0;
 
     private int _id;
 
-    private bool _isButtonInThere;
+    private bool _isButtonInThere = false;
 
     private void Awake()
     {
-        _isButtonInThere = false;
+        _id = countChest;
+        if(countChest == 8)
+            countChest = 0;
+        else 
+            countChest++;
     }
 
     public int getId()
@@ -29,6 +34,26 @@ public class Chest : MonoBehaviour
     {
         _isButtonInThere = isButton;
     }
+
+
+    void Update()
+    {
+        //Test random
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 rayPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(rayPosition, Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    Debug.Log("Le coffre est " + getIsButtonInThere());
+                }
+            }
+        }
+    }
+
 
 
 }
