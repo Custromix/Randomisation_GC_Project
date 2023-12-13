@@ -35,19 +35,20 @@ public class Randomisation : MonoBehaviour
     {
         foreach (Room room in rooms)
         {
-            int numberDoor = room.getDoors().Count;
-
             List<int> idChoosen = new List<int>();
-
-            int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
 
             int idOfOpenableDoor;
 
+            bool find;
+
+            int numberDoor = room.getDoors().Count;
+            int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
+
+            
 
             for (int i = 0; i < howManyDoorsOpenable; i++)
             {
-
-                bool find = false;
+                find = false;
                 while (!find)
                 {
                     idOfOpenableDoor = randGenerator.Next(1, (numberDoor + 1));
@@ -57,12 +58,8 @@ public class Randomisation : MonoBehaviour
                         idChoosen.Add(idOfOpenableDoor);
                         find = true;
                     }
-
                 }
-
             }
-
-
         }
     }
 
