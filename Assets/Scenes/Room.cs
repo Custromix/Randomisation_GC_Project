@@ -35,7 +35,21 @@ public class Room : MonoBehaviour
     {
         return doors;
     }
+    
+        
+    public List<Door> getDefClosedDoors()
+    {
+        List<Door> closedDoors = new List<Door>();
 
+        foreach (Door door in doors)
+        {
+            if(!door.getIsOpenable())
+                closedDoors.Add(door);
+        }
+        
+        return closedDoors;
+    }
+        
     public void loadChest()
     {
         for (int i = 0; i < 3; i++)
@@ -49,7 +63,6 @@ public class Room : MonoBehaviour
                 chestObject.transform.localPosition = newPos;
 
                 chests.Add(chestObject.GetComponent<Chest>());
-                //Debug.Log(chestObject.GetComponent<Chest>().getId());
             }
         }
         

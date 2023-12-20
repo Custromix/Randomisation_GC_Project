@@ -36,13 +36,11 @@ public class Randomisation : MonoBehaviour
     {
         foreach (Room room in rooms)
         {
-            List<int> idChoosen = new List<int>();
-
             int idOfOpenableDoor;
 
             bool find;
 
-            int numberDoor = room.getDoors().Count;
+            int numberDoor = room.getDefClosedDoors().Count;
             int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
 
            
@@ -53,9 +51,9 @@ public class Randomisation : MonoBehaviour
                 {
                     idOfOpenableDoor = randGenerator.Next(1, (numberDoor + 1));
 
-                    if (!idChoosen.Contains(idOfOpenableDoor))
+                    if (!room.getDoors()[idOfOpenableDoor].getIsOpenable())
                     {
-                        idChoosen.Add(idOfOpenableDoor);
+                        room.getDoors()[idOfOpenableDoor].setIsOpenable(true);
                         find = true;
                     }
                 }
@@ -65,15 +63,11 @@ public class Randomisation : MonoBehaviour
 
     public void randomChest()
     {
-        //Debug.Log((rooms.Count));
         int randId;
         foreach (Room room in rooms) 
         {
-            Debug.Log("idChest" + room.getChests().Count);
-
             randId = randGenerator.Next(9);
             room.getChests()[randId].setIsButtonInThere(true);
-            
         }
     }
 }
