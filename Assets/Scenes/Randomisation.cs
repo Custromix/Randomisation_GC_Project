@@ -4,59 +4,63 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Randomisation : MonoBehaviour
+public class Randomisation
 {
-    [SerializeField]
-    private List<Room> rooms = new List<Room>();
+    private List<Room> _rooms = new List<Room>();
 
-    [SerializeField]
     private int _seed;
 
     private System.Random randGenerator;
 
     // Start is called before the first frame update
-    void Start()
+    public Randomisation(int seed)
     {
+        if (seed == 0)
+            _seed = (int) System.DateTime.Now.Ticks;
+        else
+            _seed = seed;
+        
         randGenerator = new System.Random(_seed);
-        randomChest();
     }
 
-    // Update is called once per frame
-    void Update()
+    public int getSeed()
     {
-        
+        return _seed;
     }
-    public int getNumberRand()
+    
+    public void setRooms(List<Room> rooms)
     {
-        //return randGenerator.Next(1,4);
-        return randGenerator.Next(0,9);
+        _rooms = rooms;
     }
     
     public void randomDoors()
     {
-        foreach (Room room in rooms)
+        foreach (Room room in _rooms)
         {
             int idOfOpenableDoor;
 
             bool find;
 
             int numberDoor = room.getDefClosedDoors().Count;
-            int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
-
-           
-            for (int i = 0; i < howManyDoorsOpenable; i++)
+            
+            if (numberDoor > 0)
             {
-                find = false;
-                while (!find)
-                {
-                    idOfOpenableDoor = randGenerator.Next(1, (numberDoor + 1));
+                int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
 
-                    if (!room.getDoors()[idOfOpenableDoor].getIsOpenable())
+                for (int i = 0; i < howManyDoorsOpenable; i++)
+                {
+                    find = false;
+                    while (!find)
                     {
-                        room.getDoors()[idOfOpenableDoor].setIsOpenable(true);
-                        find = true;
+                        idOfOpenableDoor = randGenerator.Next(0, room.getDoors().Count);
+
+                        if (!room.getDoors()[idOfOpenableDoor].getIsOpenable())
+                        {
+                            room.getDoors()[idOfOpenableDoor].setIsOpenable(true);
+                            find = true;
+                        }
                     }
-                }
+                }   
             }
         }
     }
@@ -64,7 +68,7 @@ public class Randomisation : MonoBehaviour
     public void randomChest()
     {
         int randId;
-        foreach (Room room in rooms) 
+        foreach (Room room in _rooms) 
         {
             randId = randGenerator.Next(9);
             room.getChests()[randId].setIsButtonInThere(true);

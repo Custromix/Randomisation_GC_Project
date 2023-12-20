@@ -4,35 +4,46 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject _chest;
-    private List<Room> rooms;
+    [SerializeField]
+    private List<Room> rooms = new List<Room>();
+    
+    [SerializeField]
+    private int _seed;
+
     public Randomisation _randomisation;
 
     // Start is called before the first frame update
     void Start()
     {
-        //InitGame();
-        //loadChest();
+        int counter = 0;
+        _randomisation = new Randomisation(_seed);
+        Debug.Log(_randomisation.getSeed());
+        _randomisation.setRooms(rooms);
+        _randomisation.randomChest();
+        _randomisation.randomDoors();
+        Debug.Log("Is Solvable ? " + numberOfPathSolvable());
+        while (numberOfPathSolvable() < 1)
+        {
+            counter++;
+            Debug.Log("Compteur " + counter);
+            _randomisation.randomDoors();
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            //Debug.Log(_randomisation.getNumberRand());
-        }
     }
 
-
-    public bool IsPathSolvable()
+    public int numberOfPathSolvable()
     {
-        // Algorithme BFS pour vérifier la solvabilité du chemin
+        int numberOfExitsFound = 0;
+        
         Queue<Room> queue = new Queue<Room>();
         HashSet<Room> visited = new HashSet<Room>();
 
-        // Commencer depuis la salle en 2:1
-        Room startRoom = GetRoomAt(2, 1);
+        Room startRoom = GetRoomAt(1, 0);
 
         queue.Enqueue(startRoom);
         visited.Add(startRoom);
@@ -41,15 +52,13 @@ public class GameManager : MonoBehaviour
         {
             Room currentRoom = queue.Dequeue();
 
-            // Vérifier si la salle actuelle est la destination (2:3)
             if (IsDestinationRoom(currentRoom))
             {
-                return true; // Chemin solvable
+                numberOfExitsFound++;
             }
 
             foreach (Door door in currentRoom.getDoors())
             {
-                // Vérifier si la porte est ouvrable et mène à une salle non visitée
                 if (door.getIsOpenable())
                 {
                     Room nextRoom = GetNextRoom(currentRoom, door);
@@ -58,18 +67,25 @@ public class GameManager : MonoBehaviour
                     {
                         queue.Enqueue(nextRoom);
                         visited.Add(nextRoom);
+                        door.GetComponent<SpriteRenderer>().color = Color.green;
                     }
                 }
             }
         }
 
-        return false; // Aucun chemin vers la destination
+        return numberOfExitsFound; // Vérifie si le nombre de sorties trouvé est celui souhaité
+        
     }
 
     // Méthode pour obtenir la salle à la position spécifiée
-    private Room GetRoomAt(int row, int column)
+    private Room GetRoomAt(int x, int y)
     {
         // Implémentez la logique pour obtenir la salle à la position spécifiée
+        foreach (Room room in rooms)
+        {
+            if (room.x == x && room.y == y)
+                return room;
+        }
         return null;
     }
 
@@ -77,6 +93,8 @@ public class GameManager : MonoBehaviour
     private bool IsDestinationRoom(Room room)
     {
         // Implémentez la logique pour vérifier si la salle est la destination
+        if (room.x == 1 && room.y == 2)
+            return true;
         return false;
     }
 
@@ -84,6 +102,17 @@ public class GameManager : MonoBehaviour
     private Room GetNextRoom(Room currentRoom, Door door)
     {
         // Implémentez la logique pour obtenir la salle suivante à travers la porte spécifiée
+        foreach (Room room in rooms)
+        {
+            foreach (Door potentialDoor in room.getDoors())
+            {
+                if (potentialDoor == door)
+                {
+                    if (room != currentRoom)
+                        return room;
+                }
+            }
+        }
         return null;
     } 
 

@@ -20,6 +20,10 @@ public class Room : MonoBehaviour
     
     private List<Door> _openableDoors;
 
+    public int x;
+    
+    public int y;
+
     void Awake()
     {
         loadChest();
