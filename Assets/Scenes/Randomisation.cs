@@ -28,7 +28,8 @@ public class Randomisation : MonoBehaviour
     }
     public int getNumberRand()
     {
-        return randGenerator.Next(1,4);
+        //return randGenerator.Next(1,4);
+        return randGenerator.Next(0,9);
     }
     
     public void randomDoors()
@@ -44,8 +45,7 @@ public class Randomisation : MonoBehaviour
             int numberDoor = room.getDoors().Count;
             int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
 
-            
-
+           
             for (int i = 0; i < howManyDoorsOpenable; i++)
             {
                 find = false;
@@ -65,10 +65,15 @@ public class Randomisation : MonoBehaviour
 
     public void randomChest()
     {
+        //Debug.Log((rooms.Count));
+        int randId;
         foreach (Room room in rooms) 
         {
-            int randId = randGenerator.Next(9);
+            Debug.Log("idChest" + room.getChests().Count);
+
+            randId = randGenerator.Next(9);
             room.getChests()[randId].setIsButtonInThere(true);
+            
         }
     }
 }

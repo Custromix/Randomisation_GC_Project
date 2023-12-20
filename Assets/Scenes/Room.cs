@@ -20,7 +20,7 @@ public class Room : MonoBehaviour
     
     private List<Door> _openableDoors;
 
-    void Start()
+    void Awake()
     {
         loadChest();
     }
@@ -49,9 +49,11 @@ public class Room : MonoBehaviour
                 chestObject.transform.localPosition = newPos;
 
                 chests.Add(chestObject.GetComponent<Chest>());
-                Debug.Log(chestObject.GetComponent<Chest>().getId());
+                //Debug.Log(chestObject.GetComponent<Chest>().getId());
             }
         }
+        
+        
 
     }
 }

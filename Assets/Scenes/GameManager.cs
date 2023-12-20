@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log(_randomisation.getNumberRand());
+            //Debug.Log(_randomisation.getNumberRand());
         }
     }
 
