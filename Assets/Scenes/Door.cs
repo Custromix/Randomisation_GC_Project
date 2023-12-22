@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -8,15 +10,16 @@ public class Door : MonoBehaviour
     private bool _isOpen;
 
     private bool _isOpenable;
-    /*private Room currentRoom;
-    private Room oldRoom;*/
 
+    [SerializeField]
+    private Collider2D _col2d;
 
-
-    
     public void OpenDoor()
     {
-
+        if (_isOpenable)
+        {
+            _col2d.isTrigger = true;
+        }
     }
 
 
@@ -38,6 +41,16 @@ public class Door : MonoBehaviour
     public void setIsOpenable(bool isOpenable)
     {
         _isOpenable = isOpenable;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        GameManager.getGameManager().CurrentRoom = GameManager.getGameManager().GetNextRoom(GameManager.getGameManager().CurrentRoom,this);
+        Debug.Log(GameManager.getGameManager().CurrentRoom.transform);
+        GameManager.getGameManager().CameraController.OnEnterRoomTrigger(GameManager.getGameManager().CurrentRoom.transform);
+        Debug.Log("--------------------");
+
+        //_cameraController.
     }
     /*// Start is called before the first frame update
     void Start()

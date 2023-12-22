@@ -17,8 +17,6 @@ public class Room : MonoBehaviour
 
     [SerializeField]
     private GameObject chestPrefab;
-    
-    private List<Door> _openableDoors;
 
     public int x;
     
@@ -65,12 +63,17 @@ public class Room : MonoBehaviour
 
                 Vector3 newPos = new Vector3(-0.3f + (0.3f * j), -0.3f + (0.3f * i), transform.position.z);
                 chestObject.transform.localPosition = newPos;
-
+                    
                 chests.Add(chestObject.GetComponent<Chest>());
             }
         }
-        
-        
+    }
 
+    public void OpenDoors()
+    {
+        foreach (Door door in doors)
+        {
+            door.OpenDoor();
+        }
     }
 }

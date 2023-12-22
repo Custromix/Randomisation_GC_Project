@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    
     [SerializeField]
     private List<Room> rooms = new List<Room>();
     
@@ -12,6 +13,23 @@ public class GameManager : MonoBehaviour
 
     public Randomisation _randomisation;
 
+    private static GameManager _thisGameManager;
+
+    [SerializeField]
+    private Room _currentRoom;
+    public Room CurrentRoom
+    {
+        get => _currentRoom;
+        set => _currentRoom = value;
+    }
+    
+    [SerializeField]
+    private CameraController _cameraController;
+    public CameraController CameraController
+    {
+        get => _cameraController;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,14 +46,15 @@ public class GameManager : MonoBehaviour
             Debug.Log("Compteur " + counter);
             _randomisation.randomDoors();
         }
-        
+
+        _thisGameManager = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static GameManager getGameManager()
     {
+        return _thisGameManager;
     }
-
+    
     public int numberOfPathSolvable()
     {
         int numberOfExitsFound = 0;
@@ -99,7 +118,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Méthode pour obtenir la salle suivante à travers la porte spécifiée
-    private Room GetNextRoom(Room currentRoom, Door door)
+    public Room GetNextRoom(Room currentRoom, Door door)
     {
         // Implémentez la logique pour obtenir la salle suivante à travers la porte spécifiée
         foreach (Room room in rooms)

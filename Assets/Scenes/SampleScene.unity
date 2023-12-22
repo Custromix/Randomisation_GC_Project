@@ -746,7 +746,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4bdf5cef1041f9902d9f9f1948d078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPositions: []
+  roomPositions:
+  - {fileID: 1874554396}
+  - {fileID: 1114207778}
+  - {fileID: 2007582319}
+  - {fileID: 1606151607}
+  - {fileID: 436003146}
+  - {fileID: 1726995645}
+  - {fileID: 1965797942}
+  - {fileID: 2113371855}
+  - {fileID: 1086846326}
 --- !u!1 &541613705
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,9 +920,10 @@ GameObject:
   - component: {fileID: 614861039}
   - component: {fileID: 614861041}
   - component: {fileID: 614861042}
+  - component: {fileID: 614861043}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -980,7 +990,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.01, y: -0.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -998,7 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb2d: {fileID: 614861042}
-  speed: 5
+  speed: 200
   cameraController: {fileID: 519420033}
 --- !u!50 &614861042
 Rigidbody2D:
@@ -1027,6 +1037,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &614861043
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614861038}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!1001 &617768965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1654,6 +1699,8 @@ MonoBehaviour:
   - {fileID: 2113371856}
   - {fileID: 1086846327}
   _seed: 0
+  _currentRoom: {fileID: 1114207779}
+  _cameraController: {fileID: 519420033}
 --- !u!4 &1150326627
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Chest", menuName = "My Game/Chest")]
@@ -10,6 +12,8 @@ public class Chest : MonoBehaviour
     private int _id;
 
     private bool _isButtonInThere = false;
+
+    private Room _room;
 
     private void Awake()
     {
@@ -35,6 +39,10 @@ public class Chest : MonoBehaviour
         _isButtonInThere = isButton;
     }
 
+    public void setRoom(Room room)
+    {
+        _room = room;
+    }
 
     void Update()
     {
@@ -54,6 +62,18 @@ public class Chest : MonoBehaviour
         }
     }
 
-
-
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Le coffre est " + getIsButtonInThere());
+                if (getIsButtonInThere())
+                {
+                    transform.parent.gameObject.GetComponent<Room>().OpenDoors();
+                }
+            }
+        }
+    }
 }

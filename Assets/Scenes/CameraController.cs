@@ -4,9 +4,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] roomPositions;
+    public Transform[] roomPositions;
 
-    private int _currentRoomIndex = 0;
+    private int _currentRoomIndex = 1;
 
     void Start()
     {

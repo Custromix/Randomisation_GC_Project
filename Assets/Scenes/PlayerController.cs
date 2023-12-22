@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private CameraController cameraController;
 
+    private Vector3 velocity = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,24 +22,26 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        float verticalInput = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
         // Calculer la direction de déplacement
-        Vector2 movement = new Vector2(horizontalInput, verticalInput);
-        movement.Normalize(); // Normaliser pour s'assurer que la vitesse diagonale n'est pas plus rapide
+        Vector3 movement = new Vector2(horizontalInput, verticalInput);
+        //movement.Normalize(); // Normaliser pour s'assurer que la vitesse diagonale n'est pas plus rapide
+
+        _rb2d.velocity = Vector3.SmoothDamp(_rb2d.velocity, movement, ref velocity, .05f);
 
         // Déplacer le personnage
-        _rb2d.velocity = movement * speed;
+        //_rb2d.velocity = movement * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("RoomTrigger"))
         {
             cameraController.OnEnterRoomTrigger(other.transform);
         }
-    }
+    }*/
 }
