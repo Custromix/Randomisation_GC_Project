@@ -15,6 +15,8 @@ public class Chest : MonoBehaviour
 
     private Room _room;
 
+    private bool _isPlayerClose = false;
+
     private void Awake()
     {
         _id = countChest;
@@ -60,20 +62,30 @@ public class Chest : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && _isPlayerClose)
+        {
+            Debug.Log("Le coffre est " + getIsButtonInThere());
+            if (getIsButtonInThere())
+            {
+                transform.parent.gameObject.GetComponent<Room>().OpenDoors();
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Le coffre est " + getIsButtonInThere());
-                if (getIsButtonInThere())
-                {
-                    transform.parent.gameObject.GetComponent<Room>().OpenDoors();
-                }
-            }
+            _isPlayerClose = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            _isPlayerClose = false;
         }
     }
 }

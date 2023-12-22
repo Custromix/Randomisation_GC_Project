@@ -46,21 +46,6 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         GameManager.getGameManager().CurrentRoom = GameManager.getGameManager().GetNextRoom(GameManager.getGameManager().CurrentRoom,this);
-        Debug.Log(GameManager.getGameManager().CurrentRoom.transform);
         GameManager.getGameManager().CameraController.OnEnterRoomTrigger(GameManager.getGameManager().CurrentRoom.transform);
-        Debug.Log("--------------------");
-
-        //_cameraController.
     }
-    /*// Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }*/
 }
