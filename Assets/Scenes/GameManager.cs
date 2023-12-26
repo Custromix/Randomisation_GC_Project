@@ -29,10 +29,16 @@ public class GameManager : MonoBehaviour
     {
         get => _cameraController;
     }
-    
-    // Start is called before the first frame update
+
     void Start()
     {
+        int i = 0;
+    }
+
+    // Start is called before the first frame update
+    public void InitGameManager(int seed)
+    {
+        _seed = seed;
         int counter = 0;
         _randomisation = new Randomisation(_seed);
         Debug.Log(_randomisation.getSeed());
@@ -48,6 +54,8 @@ public class GameManager : MonoBehaviour
         }
 
         _thisGameManager = this;
+
+        Pause();
     }
 
     public static GameManager getGameManager()
@@ -133,6 +141,16 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
-    } 
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void Continue()
+    {
+        Time.timeScale = 1.0f;
+    }
 
 }
