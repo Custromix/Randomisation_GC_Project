@@ -17,6 +17,16 @@ public class Chest : MonoBehaviour
 
     private bool _isPlayerClose = false;
 
+    [SerializeField]
+    private Canvas _canvas;
+
+    [SerializeField]
+    private Sprite _chestOpenSprite;
+
+    SpriteRenderer _spriteRenderer;
+
+    private bool spriteChanged = false;
+
     private void Awake()
     {
         _id = countChest;
@@ -24,6 +34,9 @@ public class Chest : MonoBehaviour
             countChest = 0;
         else 
             countChest++;
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     public int getId()
@@ -63,14 +76,32 @@ public class Chest : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && _isPlayerClose)
+        if (_isPlayerClose)
         {
-            Debug.Log("Le coffre est " + getIsButtonInThere());
-            if (getIsButtonInThere())
+            if (!spriteChanged)
+                _canvas.gameObject.SetActive(true);
+            
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                transform.parent.gameObject.GetComponent<Room>().OpenDoors();
+                Debug.Log("Le coffre est " + getIsButtonInThere());
+
+                if (!spriteChanged)
+                {
+                    _spriteRenderer.sprite = _chestOpenSprite;
+                    spriteChanged = true;
+                }
+
+                if (getIsButtonInThere())
+                {
+                    transform.parent.gameObject.GetComponent<Room>().OpenDoors();
+                }
             }
         }
+        else
+            _canvas.gameObject.SetActive(false);
+
+
+
     }
 
     private void OnTriggerStay2D(Collider2D col)

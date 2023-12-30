@@ -47,7 +47,7 @@ public class Randomisation
             {
                 int howManyDoorsOpenable = randGenerator.Next(1, (numberDoor+1));
 
-                for (int i = 0; i < howManyDoorsOpenable; i++)
+                for (int i = 0; i < howManyDoorsOpenable-1; i++)
                 {
                     find = false;
                     while (!find)

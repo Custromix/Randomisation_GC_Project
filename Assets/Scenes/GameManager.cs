@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                     {
                         queue.Enqueue(nextRoom);
                         visited.Add(nextRoom);
-                        door.GetComponent<SpriteRenderer>().color = Color.green;
+                        //door.GetComponent<SpriteRenderer>().color = Color.green;
                     }
                 }
             }
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 1.0f;
     }
 
     public void Continue()

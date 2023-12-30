@@ -9,6 +9,9 @@ public class CanvaManager : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField _seedInput;
+
+    [SerializeField]
+    private GameManager _gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,6 @@ public class CanvaManager : MonoBehaviour
 
     public void loadSeed()
     {
-        //Debug.Log();
         int seed = 0;
 
         try
@@ -31,9 +33,11 @@ public class CanvaManager : MonoBehaviour
             seed = int.Parse(_seedInput.text);
         }catch (Exception e) { }
 
-        Debug.Log(GameManager.getGameManager());
-        GameManager.getGameManager().InitGameManager(seed);
+        _gameManager.InitGameManager(seed);
     }
 
-   
+    public void newGame()
+    {
+        _gameManager.InitGameManager(0);
+    }
 }

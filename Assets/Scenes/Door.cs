@@ -14,14 +14,32 @@ public class Door : MonoBehaviour
     [SerializeField]
     private Collider2D _col2d;
 
+    private SpriteRenderer _spriteRenderer;
+
+    [SerializeField]
+    private Sprite _doorOpenSprite;
+
+    private void Start()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     public void OpenDoor()
     {
         if (_isOpenable)
         {
             _col2d.isTrigger = true;
+            _spriteRenderer.sprite = _doorOpenSprite;
         }
     }
 
+    private void Update()
+    {
+        if(_isOpenable)
+        {
+            _spriteRenderer.color = Color.green;
+        }
+    }
 
     public bool getIsOpen()
     {

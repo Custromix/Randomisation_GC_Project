@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 5722324360211885217}
   - component: {fileID: 2320822683958290170}
   m_Layer: 0
-  m_Name: New Palette1
+  m_Name: FloorPalette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
