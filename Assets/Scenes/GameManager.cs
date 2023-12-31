@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +16,9 @@ public class GameManager : MonoBehaviour
     public Randomisation _randomisation;
 
     private static GameManager _thisGameManager;
+
+    [SerializeField]
+    private TMP_Text _textMeshProSeed;
 
     [SerializeField]
     private Room _currentRoom;
@@ -33,29 +38,32 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         int i = 0;
+        Pause();
     }
 
     // Start is called before the first frame update
     public void InitGameManager(int seed)
     {
-        _seed = seed;
         int counter = 0;
-        _randomisation = new Randomisation(_seed);
+        _randomisation = new Randomisation(seed);
+        _seed = _randomisation.getSeed();
         Debug.Log(_randomisation.getSeed());
         _randomisation.setRooms(rooms);
         _randomisation.randomChest();
         _randomisation.randomDoors();
         Debug.Log("Is Solvable ? " + numberOfPathSolvable());
-        while (numberOfPathSolvable() < 1)
+        if (numberOfPathSolvable() < 1)
+        {
+            ReloadGame();
+        }
+        /*while (1)
         {
             counter++;
             Debug.Log("Compteur " + counter);
             _randomisation.randomDoors();
-        }
-
+        }*/
+        _textMeshProSeed.text = "Seed : " + _seed;
         _thisGameManager = this;
-
-        Pause();
     }
 
     public static GameManager getGameManager()
@@ -145,12 +153,17 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 1.0f;
+        Time.timeScale = 0.0f;
     }
 
     public void Continue()
     {
         Time.timeScale = 1.0f;
+    }
+
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

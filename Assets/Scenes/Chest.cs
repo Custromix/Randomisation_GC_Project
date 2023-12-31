@@ -27,6 +27,10 @@ public class Chest : MonoBehaviour
 
     private bool spriteChanged = false;
 
+    public bool _isTheEndChest = false;
+
+
+
     private void Awake()
     {
         _id = countChest;
@@ -94,6 +98,12 @@ public class Chest : MonoBehaviour
                 if (getIsButtonInThere())
                 {
                     transform.parent.gameObject.GetComponent<Room>().OpenDoors();
+                    if(_isTheEndChest) 
+                    { 
+                        transform.parent.gameObject.GetComponent<Room>()._canvasEnd.gameObject.SetActive(true);
+                        transform.parent.gameObject.GetComponent<Room>()._gameManager.Pause();
+                    }
+
                 }
             }
         }

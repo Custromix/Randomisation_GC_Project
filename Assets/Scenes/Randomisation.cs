@@ -72,6 +72,10 @@ public class Randomisation
         {
             randId = randGenerator.Next(9);
             room.getChests()[randId].setIsButtonInThere(true);
+            if (room.isEnd)
+            {
+                room.getChests()[randId]._isTheEndChest = true;
+            }
         }
     }
 }

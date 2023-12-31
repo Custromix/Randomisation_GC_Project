@@ -19,6 +19,14 @@ public class Door : MonoBehaviour
     [SerializeField]
     private Sprite _doorOpenSprite;
 
+    [SerializeField]
+    private GameManager _gameManager;
+
+    [SerializeField]
+    private GameObject _doorSideOpen;
+
+    public bool isSide = false;
+
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -29,7 +37,16 @@ public class Door : MonoBehaviour
         if (_isOpenable)
         {
             _col2d.isTrigger = true;
-            _spriteRenderer.sprite = _doorOpenSprite;
+
+            if (isSide)
+            {
+                _doorSideOpen.SetActive(true);
+                this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                _spriteRenderer.sprite = _doorOpenSprite;
+            }
         }
     }
 
@@ -63,7 +80,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        GameManager.getGameManager().CurrentRoom = GameManager.getGameManager().GetNextRoom(GameManager.getGameManager().CurrentRoom,this);
-        GameManager.getGameManager().CameraController.OnEnterRoomTrigger(GameManager.getGameManager().CurrentRoom.transform);
+        _gameManager.CurrentRoom = _gameManager.GetNextRoom(_gameManager.CurrentRoom,this);
+        _gameManager.CameraController.OnEnterRoomTrigger(_gameManager.CurrentRoom.transform);
     }
 }

@@ -22,6 +22,12 @@ public class Room : MonoBehaviour
     
     public int y;
 
+    public bool isEnd = false;
+
+    public Canvas _canvasEnd;
+
+    public GameManager _gameManager;
+
     void Awake()
     {
         loadChest();
