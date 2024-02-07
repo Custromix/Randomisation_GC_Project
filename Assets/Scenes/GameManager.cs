@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Room _currentRoom;
+
+    [SerializeField]
+    private TextMeshPro _textMeshProPasBon;
+
     public Room CurrentRoom
     {
         get => _currentRoom;
